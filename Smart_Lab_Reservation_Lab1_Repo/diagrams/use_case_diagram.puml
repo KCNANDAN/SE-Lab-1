@@ -1,0 +1,31 @@
+@startuml
+left to right direction
+actor Student
+actor "Lab Technician" as Technician
+actor "University Identity Provider" as IdP
+
+rectangle "Smart Lab Equipment & Slot Reservation Portal" {
+  usecase "UC-01\nAuthenticate User" as UC1
+  usecase "UC-02\nReserve Calibrated Equipment" as UC2
+  usecase "UC-03\nView Equipment & Availability" as UC3
+  usecase "UC-04\nManage Calibration Records" as UC4
+  usecase "UC-05\nView / Cancel Reservations" as UC5
+  usecase "UC-06\nRecord Equipment Return" as UC6
+  usecase "UC-07\nReview Late Return Flag" as UC7
+  usecase "Check Calibration Status" as CheckCal
+  usecase "Check Slot Availability" as CheckSlot
+  usecase "Flag Late Return" as LateFlag
+}
+Student -- UC2
+Student -- UC3
+Student -- UC5
+Technician -- UC4
+Technician -- UC6
+Technician -- UC7
+IdP -- UC1
+UC2 ..> UC1 : <<include>>
+UC2 ..> CheckCal : <<include>>
+UC2 ..> CheckSlot : <<include>>
+LateFlag ..> UC6 : <<extend>>
+UC7 ..> LateFlag : <<include>>
+@enduml
